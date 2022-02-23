@@ -1,13 +1,15 @@
 package modeles;
 
+import java.util.ArrayList;
+
 public class Agence {
-    private int id;	
+    private int id;
     private int id_prop;
     private String nom;
     private int numero;
     private int nb_etoile;
-    private String address;	
-
+    private String address;
+    private ArrayList<Vol> vols = new ArrayList<Vol>();
 
     public Agence() {
     }
@@ -16,14 +18,14 @@ public class Agence {
         this.id = id;
     }
 
-
-    public Agence( int id_prop, String nom, int numero, int nb_etoile, String address) {
+    public Agence(int id_prop, String nom, int numero, int nb_etoile, String address) {
         this.id_prop = id_prop;
         this.nom = nom;
         this.numero = numero;
         this.nb_etoile = nb_etoile;
         this.address = address;
     }
+
     public Agence(int id, int id_prop, String nom, int numero, int nb_etoile, String address) {
         this.id = id;
         this.id_prop = id_prop;
@@ -33,16 +35,35 @@ public class Agence {
         this.address = address;
     }
 
+    public void addVol(Vol v) {
+        vols.add(v);
+    }
+
+    public int calculateReture() {
+        int sum = 0;
+        for (Vol vol : vols) {
+            sum += vol.calculateReture();
+        }
+        return sum;
+    }
+
+    public String statistics() {
+        return vols.stream()
+                .mapToInt(v -> v.calculateReture())
+                .summaryStatistics().toString();
+
+    }
+
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", id_prop='" + getId_prop() + "'" +
-            ", nom='" + getNom() + "'" +
-            ", numero='" + getNumero() + "'" +
-            ", nb_etoile='" + getNb_etoile() + "'" +
-            ", address='" + getAddress() + "'" +
-            "}";
+                " id='" + getId() + "'" +
+                ", id_prop='" + getId_prop() + "'" +
+                ", nom='" + getNom() + "'" +
+                ", numero='" + getNumero() + "'" +
+                ", nb_etoile='" + getNb_etoile() + "'" +
+                ", address='" + getAddress() + "'" +
+                "}";
     }
 
     public int getId() {

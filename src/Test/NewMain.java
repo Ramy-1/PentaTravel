@@ -8,18 +8,18 @@ package Test;
 import java.sql.Date;
 
 import modeles.Agence;
-import modeles.Vol;
+import modeles.Vol_command;
 import services.ServiceAgence;
-import services.ServiceVol;
+import services.ServiceVol_command;
 
 
 public class NewMain {
     public static void main(String[] args) {
         ServiceAgence sA = new ServiceAgence();
-        ServiceVol sV = new ServiceVol();
+        ServiceVol_command sV = new ServiceVol_command();
       
         Date d = new Date(120,2,8);
-        Vol v = new Vol(1,001,"tttt","aaaa","PRS",d,850);
+        Vol_command v = new Vol_command(1,001,"tttt","aaaa","PRS",d,850);
 
         sV.update(v); 
         //sV.add(v);

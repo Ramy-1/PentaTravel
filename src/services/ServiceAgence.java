@@ -2,7 +2,7 @@ package services;
 import java.util.List;
 
 import modeles.Agence;
-import modeles.Vol;
+import modeles.Vol_command;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
