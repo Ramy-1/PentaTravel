@@ -19,7 +19,7 @@ public class NewMain {
         ServiceVol_command sV = new ServiceVol_command();
       
         Date d = new Date(120,2,8);
-        Vol_command v = new Vol_command(1,001,"tttt","aaaa","PRS",d,850);
+        Vol_command v = new Vol_command(1,001,5,850);
 
         sV.update(v); 
         //sV.add(v);

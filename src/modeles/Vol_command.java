@@ -2,6 +2,10 @@ package modeles;
 
 import java.sql.Date;
 
+import services.ServiceAgence;
+import services.ServiceVol;
+import services.ServiceVol_command;
+
 public class Vol_command {
     private int id;
     private int id_user;
@@ -21,6 +25,13 @@ public class Vol_command {
         this.id_user = id_user;
         this.id_agance = id_agance;
         this.id_vol = id_vol;
+    }
+
+    public Vol_command add(){
+        ServiceAgence sA = new ServiceAgence();
+        ServiceVol_command sVc = new ServiceVol_command();
+        ServiceVol sV = new ServiceVol();
+        return this;
     }
 
     @Override

@@ -2,7 +2,7 @@ package services;
 
 import java.util.List;
 
-import modeles.Vol_command;
+import modeles.Vol;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,22 +12,25 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import utils.DataSource;
 
-public class ServiceVol_command implements IService {
+public class ServiceVol implements IService {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
     public void add(Object u) {
-        Vol_command v = (Vol_command) u;
+        Vol v = (Vol) u;
         try {
-            String req = "INSERT INTO `Vol_command`(`id_user`,`id_agance`,`id_vol') VALUES (?,?,?)";
+            String req = "INSERT INTO `Vol`(`id_agance`,`capacity`,`prix` ,`company`, `depart`, `destination`, `date`) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, v.getId_user());
-            ps.setInt(1, v.getId_agance());
-            ps.setInt(1, v.getId_vol());
-            
+            ps.setInt(1, v.getId_agence());
+            ps.setInt(2, v.getCapacity());
+            ps.setInt(3, v.getPrix());
+            ps.setString(4, v.getCompany());
+            ps.setString(5, v.getDepart());
+            ps.setString(6, v.getDestination());
+            ps.setString(7, v.getDate().toString());
 
             ps.executeUpdate();
-            System.out.println("Vol_command Ajoutée");
+            System.out.println("Vol Ajoutée");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -36,20 +39,24 @@ public class ServiceVol_command implements IService {
 
     @Override
     public Object getById(int id) {
-        Vol_command v = new Vol_command(id);
+        Vol v = new Vol(id);
         try {
-            String req = "SELECT * FROM `Vol_command` where id = " + id;
+            String req = "SELECT * FROM `Vol` where id = " + id;
             // Statement st = cnx.createStatement();
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
 
             while (rs.next()) {
-                Vol_command vc = new Vol_command(
+                Vol vv = new Vol(
                         rs.getInt(1),
                         rs.getInt(2),
                         rs.getInt(3),
-                        rs.getInt(4));
-                v = vc;
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getDate(8));
+                v = vv;
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -59,18 +66,22 @@ public class ServiceVol_command implements IService {
 
     @Override
     public List getAll() {
-        List<Vol_command> list = new ArrayList<>();
+        List<Vol> list = new ArrayList<>();
         try {
-            String req = "SELECT * FROM `Vol_command`";
+            String req = "SELECT * FROM `Vol`";
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                Vol_command vc = new Vol_command(
+                Vol vv = new Vol(
                         rs.getInt(1),
                         rs.getInt(2),
                         rs.getInt(3),
-                        rs.getInt(4));
-                list.add(vc);
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getDate(8));
+                list.add(vv);
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -80,19 +91,22 @@ public class ServiceVol_command implements IService {
 
     @Override
     public boolean update(Object u) {
-        Vol_command v = (Vol_command) u;
+        Vol v = (Vol) u;
         System.out.println(u);
-        String req = "update Vol_command set id_user = ? , id_agance= ? , id_vol = ? where id = ? ";
+        String req = "update Vol set id_agance= ? ,capacity = ?,prix = ?, company = ? , depart =? , destination = ? , date = ? where id = ? ";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, v.getId_user());
-            ps.setInt(2, v.getId_agance());
-            ps.setInt(3, v.getId_vol());
-            ps.setInt(4, v.getId());
-            
+            ps.setInt(1, v.getId_agence());
+            ps.setInt(2, v.getCapacity());
+            ps.setInt(3, v.getPrix());
+            ps.setString(4, v.getCompany());
+            ps.setString(5, v.getDepart());
+            ps.setString(6, v.getDestination());
+            ps.setString(7, v.getDate().toString());
+            ps.setInt(8, v.getId());
 
             ps.executeUpdate();
-            System.out.println("Vol_command modifier");
+            System.out.println("Vol modifier");
             ps.close();
 
         } catch (SQLException ex) {
@@ -103,14 +117,14 @@ public class ServiceVol_command implements IService {
 
     @Override
     public boolean delete(Object u) {
-        Vol_command v = (Vol_command) u;
+        Vol v = (Vol) u;
 
-        String req = "delete from Vol_command where id = ?";
+        String req = "delete from Vol where id = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, v.getId());
             ps.executeUpdate();
-            System.out.println("Vol_command supprimer");
+            System.out.println("Vol supprimer");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }

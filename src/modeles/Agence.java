@@ -48,7 +48,7 @@ public class Agence {
     }
 
     public String statistics() {
-        return vols.stream()
+        return vols.stream() 
                 .mapToInt(v -> v.calculateReture())
                 .summaryStatistics().toString();
 

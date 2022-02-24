@@ -21,19 +21,18 @@ public class Vol {
         this.id = id;
     }
 
-    public Vol(int id_agence,int capacity, String company, String depart, String destination, Date date,
-            ArrayList<Vol_command> list_commands) {
+    public Vol(int id_agence, int capacity, int prix, String company, String depart, String destination, Date date) {
         this.id_agence = id_agence;
         this.capacity = capacity;
+        this.prix = prix;
         this.company = company;
         this.depart = depart;
         this.destination = destination;
         this.date = date;
-        this.list_commands = list_commands;
     }
 
-    public Vol(int id, int capacity,int id_agence, String company, String depart, String destination, Date date,
-            ArrayList<Vol_command> list_commands) {
+    public Vol(int id, int capacity, int prix, int id_agence, String company, String depart, String destination,
+            Date date) {
         this.id = id;
         this.id_agence = id_agence;
         this.capacity = capacity;
@@ -41,29 +40,32 @@ public class Vol {
         this.depart = depart;
         this.destination = destination;
         this.date = date;
-        this.list_commands = list_commands;
     }
 
-    public void addVol_command(Vol_command vc){
+    public void addVol_command(Vol_command vc) {
         list_commands.add(vc);
     }
 
-    public int calculateReture(){
-        return list_commands.size()*prix;
+    public int calculateReture() {
+        return list_commands.size() * prix;
     }
+
 
     @Override
     public String toString() {
         return "{" +
-                " id='" + getId() + "'" +
-                ", id_agence='" + getId_agence() + "'" +
-                ", company='" + getCompany() + "'" +
-                ", depart='" + getDepart() + "'" +
-                ", destination='" + getDestination() + "'" +
-                ", date='" + getDate() + "'" +
-                ", list_commands='" + getlist_commands() + "'" +
-                "}";
+            " id='" + getId() + "'" +
+            ", id_agence='" + getId_agence() + "'" +
+            ", capacity='" + getCapacity() + "'" +
+            ", prix='" + getPrix() + "'" +
+            ", company='" + getCompany() + "'" +
+            ", depart='" + getDepart() + "'" +
+            ", destination='" + getDestination() + "'" +
+            ", date='" + getDate() + "'" +
+            ", list_commands='" + getList_commands() + "'" +
+            "}";
     }
+    
 
     public int getId() {
         return this.id;
@@ -71,6 +73,30 @@ public class Vol {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCapacity() {
+        return this.capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getPrix() {
+        return this.prix;
+    }
+
+    public void setPrix(int prix) {
+        this.prix = prix;
+    }
+
+    public ArrayList<Vol_command> getList_commands() {
+        return this.list_commands;
+    }
+
+    public void setList_commands(ArrayList<Vol_command> list_commands) {
+        this.list_commands = list_commands;
     }
 
     public int getId_agence() {
