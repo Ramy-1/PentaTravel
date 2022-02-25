@@ -1,6 +1,7 @@
 package modeles;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Agence {
     private int id;
@@ -10,6 +11,22 @@ public class Agence {
     private int nb_etoile;
     private String address;
     private ArrayList<Vol> vols = new ArrayList<Vol>();
+
+    public Agence add() {
+        Scanner in = new Scanner(System.in);
+        System.out.println("id_prop= ");
+        this.id_prop = Integer.parseInt(in.nextLine());
+        System.out.println("nom= ");
+        this.nom = in.nextLine();
+        System.out.println("numero= ");
+        this.numero = Integer.parseInt(in.nextLine());
+        System.out.println("nb_etoile= ");
+        this.nb_etoile = Integer.parseInt(in.nextLine());
+        System.out.println("address= ");
+        this.address = in.nextLine();
+
+        return this;
+    }
 
     public Agence() {
     }
@@ -48,7 +65,7 @@ public class Agence {
     }
 
     public String statistics() {
-        return vols.stream() 
+        return vols.stream()
                 .mapToInt(v -> v.calculateReture())
                 .summaryStatistics().toString();
 

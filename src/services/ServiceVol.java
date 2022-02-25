@@ -18,8 +18,9 @@ public class ServiceVol implements IService {
 
     public void add(Object u) {
         Vol v = (Vol) u;
+        System.out.println(v);
         try {
-            String req = "INSERT INTO `Vol`(`id_agance`,`capacity`,`prix` ,`company`, `depart`, `destination`, `date`) VALUES (?,?,?,?,?,?,?)";
+            String req = "INSERT INTO `vol` (`id_agence`,`capacity`,`prix` ,`company`, `depart`, `destination`, `date`) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, v.getId_agence());
             ps.setInt(2, v.getCapacity());
@@ -77,6 +78,29 @@ public class ServiceVol implements IService {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getDate(8));
+                list.add(vv);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return list;
+    }
+    public List getByIdAgence(int id_agence) {
+        List<Vol> list = new ArrayList<>();
+        try {
+            String req = "SELECT * FROM `Vol` where id_agence = "+ id_agence;
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                Vol vv = new Vol(
+                        rs.getInt(1),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getInt(2),
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),

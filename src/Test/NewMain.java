@@ -8,31 +8,32 @@ package Test;
 import java.sql.Date;
 
 import modeles.Agence;
+import modeles.Vol;
 import modeles.Vol_command;
 import services.ServiceAgence;
+import services.ServiceVol;
 import services.ServiceVol_command;
-
 
 public class NewMain {
     public static void main(String[] args) {
         ServiceAgence sA = new ServiceAgence();
-        ServiceVol_command sV = new ServiceVol_command();
-      
-        Date d = new Date(120,2,8);
-        Vol_command v = new Vol_command(1,001,5,850);
+        ServiceVol sV = new ServiceVol();
+        ServiceVol_command sVc = new ServiceVol_command();
 
-        sV.update(v); 
-        //sV.add(v);
-       // System.out.println(sV.getAll());
-        
-        Agence a = new Agence(1 , 001,"hana",27000123,5,"tunis");
-                    
-        //sA.add(a);
-        //System.out.println(sA.getAll());
-       // sA.update(a) ; 
+        // Vol_command v = new Vol_command(1,001,5,850);
 
+        // sV.add(v);
+        // System.out.println(sV.getAll());
+        // Agence a = new Agence(001,"hana",27000123,5,"tunis");
 
+        Agence a = new Agence();
+        Vol v = new Vol();
+        Vol_command vc = new Vol_command();
 
+        // sA.add(a.add());
+        // sV.add(v.add());
+
+        sVc.add(vc.add());
     }
 
 }

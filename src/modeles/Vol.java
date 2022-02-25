@@ -2,6 +2,11 @@ package modeles;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import services.ServiceAgence;
+import services.ServiceVol_command;
 
 public class Vol {
     private int id;
@@ -12,7 +17,30 @@ public class Vol {
     private String depart;
     private String destination;
     private Date date;
-    ArrayList<Vol_command> list_commands = new ArrayList<Vol_command>();
+    List<Vol_command> list_commands = new ArrayList<Vol_command>();
+
+    ServiceAgence sA = new ServiceAgence();
+    ServiceVol_command sVc = new ServiceVol_command();
+
+    public Vol add() {
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("id_agence= ");
+        this.id_agence = Integer.parseInt(in.nextLine());
+        System.out.println("capacity= ");
+        this.capacity = Integer.parseInt(in.nextLine());
+        System.out.println("prix= ");
+        this.prix = Integer.parseInt(in.nextLine());
+        System.out.println("company= ");
+        this.company = in.nextLine();
+        System.out.println("depart= ");
+        this.depart = in.nextLine();
+        System.out.println("destination= ");
+        this.destination = in.nextLine();
+        System.out.println("date= ");
+        this.date = Date.valueOf(in.nextLine());
+        return this;
+    }
 
     public Vol() {
     }
@@ -35,11 +63,13 @@ public class Vol {
             Date date) {
         this.id = id;
         this.id_agence = id_agence;
+        this.prix = prix;
         this.capacity = capacity;
         this.company = company;
         this.depart = depart;
         this.destination = destination;
         this.date = date;
+        this.list_commands=sVc.getById_vol(this.id);
     }
 
     public void addVol_command(Vol_command vc) {
@@ -48,6 +78,14 @@ public class Vol {
 
     public int calculateReture() {
         return list_commands.size() * prix;
+    }
+
+    public List<Vol_command> getList_commands() {
+        return sVc.getById_vol(this.id);
+    }
+
+    public void setList_commands(List<Vol_command> list_commands) {
+        this.list_commands = list_commands;
     }
 
 
@@ -62,10 +100,10 @@ public class Vol {
             ", depart='" + getDepart() + "'" +
             ", destination='" + getDestination() + "'" +
             ", date='" + getDate() + "'" +
-            ", list_commands='" + getList_commands() + "'" +
+            ", list_commands='" + getList_commands() +
             "}";
     }
-    
+
 
     public int getId() {
         return this.id;
@@ -89,14 +127,6 @@ public class Vol {
 
     public void setPrix(int prix) {
         this.prix = prix;
-    }
-
-    public ArrayList<Vol_command> getList_commands() {
-        return this.list_commands;
-    }
-
-    public void setList_commands(ArrayList<Vol_command> list_commands) {
-        this.list_commands = list_commands;
     }
 
     public int getId_agence() {
@@ -137,14 +167,6 @@ public class Vol {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public ArrayList<Vol_command> getlist_commands() {
-        return this.list_commands;
-    }
-
-    public void setlist_commands(ArrayList<Vol_command> list_commands) {
-        this.list_commands = list_commands;
     }
 
 }
