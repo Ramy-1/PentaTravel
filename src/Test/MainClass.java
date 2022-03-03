@@ -3,13 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.connexion3a2.tests;
+//package edu.connexion3a2.tests;
+//
+//import edu.connexion3a2.entities.Locations;
+//import edu.connexion3a2.entities.Transport;
+//import edu.connexion3a2.services.LocationsCRUD;
+//import edu.connexion3a2.services.TransportCRUD;
+//import edu.connexion3a2.utils.MyConnection;
+package Test;
 
-import edu.connexion3a2.entities.Locations;
-import edu.connexion3a2.entities.Transport;
-import edu.connexion3a2.services.LocationsCRUD;
-import edu.connexion3a2.services.TransportCRUD;
-import edu.connexion3a2.utils.MyConnection;
+import java.sql.Date;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Scanner;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import modeles.Transport ; 
+import modeles.Locations; 
+import services.LocationsCRUD;
+import services.TransportCRUD;
+
 import java.util.List;
 
 /**
@@ -20,8 +38,8 @@ public class MainClass {
 
     public static void main(String[] args) {
         //System.out.println("***********   Connection BDD   ***************");
-        MyConnection mc = new MyConnection();
-        MyConnection m1 = MyConnection.getInstance();
+//        MyConnection mc = new MyConnection();
+//        MyConnection m1 = MyConnection.getInstance();
       //  System.out.println("***********   Gestion Locations   ***************");
         LocationsCRUD ad = new LocationsCRUD();
         Locations A1 = new Locations(1000, "18/60/2000", "nabeul", "3");

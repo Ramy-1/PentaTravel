@@ -1,36 +1,43 @@
+package services;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.connexion3a2.services;
+// package edu.connexion3a2.services;
 
+//import edu.connexion3a2.entities.Locations;
+import java.sql.Connection;
 import java.util.List;
 
 /**
  *
  * @author DELL
  */
-import edu.connexion3a2.entities.Locations;
-import edu.connexion3a2.utils.MyConnection;
+//import edu.connexion3a2.entities.Locations;
+// import edu.connexion3a2.utils.MyConnection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import modeles.Locations;
+import utils.DataSource;
 
 /**
  *
  * @author MSI
  */
 public class LocationsCRUD {
+    Connection cnx = DataSource.getInstance().getCnx();
 
     public void ajouterLocations(Locations C) {
 
         try {
             String requete = "INSERT INTO locations (prix,prix_total,date,destination,duree) VALUES (?,?,?,?,?)";
-            PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
+            PreparedStatement pst = cnx.prepareStatement(requete);
            // pst.setInt(1, C.getId());
             pst.setFloat(1, C.getPrix());
              pst.setFloat(2, C.getPrix_total());
@@ -49,7 +56,7 @@ public class LocationsCRUD {
         List<Locations> myList = new ArrayList();
         try {
             String requete = "SELECT * FROM locations";
-            Statement st = new MyConnection().getCnx().createStatement();
+            Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(requete);
 
             while (res.next()) {
@@ -72,7 +79,7 @@ public class LocationsCRUD {
     public void modifierLocations(Locations C) {
         try {
             String req = "UPDATE locations SET prix='" + C.getPrix() + "', date='" + C.getDate() + "', destination='" + C.getDestination() + "', duree='" + C.getDuree() + "' WHERE id=" + C.getId();
-            Statement st = new MyConnection().getCnx().createStatement();
+            Statement st = cnx.createStatement();
             st.executeUpdate(req);
             System.out.println("Location modifée !");
         } catch (SQLException ex) {
@@ -83,7 +90,7 @@ public class LocationsCRUD {
     public void supprimerLocations(int id) {
         try {
             String req = "DELETE FROM locations where id=" + id;
-            Statement st = new MyConnection().getCnx().createStatement();
+           Statement st = cnx.createStatement();
             st.executeUpdate(req);
             System.out.println("Location supprimée !");
         } catch (SQLException ex) {
@@ -101,7 +108,7 @@ public class LocationsCRUD {
         double prix_tot = 0;
         List<String> duree = new ArrayList<>();
         try {
-            Statement st = new MyConnection().getCnx().createStatement();
+            Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 prixL.add(rs.getString("prix"));
@@ -110,7 +117,7 @@ public class LocationsCRUD {
                 for (int i = 0; i < prixL.size(); i++) {
                     prix_tot=Integer.parseInt(prixL.get(i))*Integer.parseInt(duree.get(i));
                     String queryy = "UPDATE `locations` SET `prix_total`='"+prix_tot+"' WHERE id="+id.get(i);
-                    Statement st1 = new MyConnection().getCnx().createStatement();
+                    Statement st1 = cnx.createStatement();
                     st1.executeUpdate(queryy);
                     System.out.println("prix total = "+prix_tot);
                 }

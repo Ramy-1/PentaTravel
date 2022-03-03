@@ -1,30 +1,37 @@
+package services;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.connexion3a2.services;
+//package edu.connexion3a2.services;
 
-import edu.connexion3a2.entities.Transport;
-import edu.connexion3a2.utils.MyConnection;
+//import edu.connexion3a2.entities.Transport;
+//import edu.connexion3a2.utils.MyConnection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import modeles.Transport;
+import utils.DataSource;
 
 /**
  *
  * @author DELL
  */
 public class TransportCRUD {
+    
+     Connection cnx = DataSource.getInstance().getCnx();
 
     public void ajouterTransport(Transport C) {
 
         try {
             String requete = "INSERT INTO transport (id,type,num,dispo) VALUES (?,?,?,?)";
-            PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
+            PreparedStatement pst = cnx.prepareStatement(requete);
             pst.setInt(1, C.getId());
             pst.setString(2, C.getType());
             pst.setInt(3, C.getNum());
@@ -41,8 +48,8 @@ public class TransportCRUD {
         List<Transport> myList = new ArrayList();
         try {
             String requete = "SELECT * FROM transport";
-            Statement st = new MyConnection().getCnx().createStatement();
-            ResultSet res = st.executeQuery(requete);
+            PreparedStatement pst = cnx.prepareStatement(requete);
+            ResultSet res = pst.executeQuery(requete);
 
             while (res.next()) {
                 Transport C = new Transport();
@@ -63,7 +70,7 @@ public class TransportCRUD {
     public void modifierTransport(Transport C) {
         try {
             String req = "UPDATE transport SET type='" + C.getType() + "', num='" + C.getNum() + "', dispo='" + C.getDispo() + "' WHERE id=" + C.getId();
-            Statement st = new MyConnection().getCnx().createStatement();
+            PreparedStatement st = cnx.prepareStatement(req);
             st.executeUpdate(req);
             System.out.println("Transport modifée !");
         } catch (SQLException ex) {
@@ -74,7 +81,7 @@ public class TransportCRUD {
     public void supprimerTransport(int id) {
         try {
             String req = "DELETE FROM transport where id=" + id;
-            Statement st = new MyConnection().getCnx().createStatement();
+            PreparedStatement st = cnx.prepareStatement(req);
             st.executeUpdate(req);
             System.out.println("Transport supprimée !");
         } catch (SQLException ex) {
@@ -86,7 +93,7 @@ public class TransportCRUD {
         List<Transport> myList = new ArrayList();
         try {
             String requete = "SELECT * FROM transport where id=" + id;
-            Statement st = new MyConnection().getCnx().createStatement();
+            PreparedStatement st = cnx.prepareStatement(requete);
             ResultSet res = st.executeQuery(requete);
 
             while (res.next()) {
