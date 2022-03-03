@@ -6,34 +6,50 @@
 package Test;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
-import modeles.Agence;
-import modeles.Vol;
-import modeles.Vol_command;
-import services.ServiceAgence;
-import services.ServiceVol;
-import services.ServiceVol_command;
+import modeles.Chambre;
+import modeles.Hotel;
+import modeles.Reservation;
+import modeles.Type;
+import services.ServiceChambre;
+import services.ServiceHotel;
+import services.ServiceReservation;
 
+/**
+ *
+ * @author Faty
+ */
 public class NewMain {
-    public static void main(String[] args) {
-        ServiceAgence sA = new ServiceAgence();
-        ServiceVol sV = new ServiceVol();
-        ServiceVol_command sVc = new ServiceVol_command();
+  public static void main(String[] args) {
+    Menu menu = new Menu();
+    ServiceHotel sH = new ServiceHotel();
+    ServiceReservation sR = new ServiceReservation();
+    ServiceChambre sC = new ServiceChambre();
 
-        // Vol_command v = new Vol_command(1,001,5,850);
+   // Hotel h = new Hotel(001, "Hotel", "hammamet", Type.Hotel, 4, 20888999, 500);
+   //  Hotel h2 = new Hotel(3,2,"nour","abid",Type.Hotel,4,20888999,500000);
 
-        // sV.add(v);
-        // System.out.println(sV.getAll());
-        // Agence a = new Agence(001,"hana",27000123,5,"tunis");
+     //sH.add(h);
 
-        Agence a = new Agence();
-        Vol v = new Vol();
-        Vol_command vc = new Vol_command();
+    // Chambre c = new Chambre(6, 50, 120, "image", "vue sur mer", true);
+     //Chambre c2 = new Chambre(6, 51, 120, "image", "chambre a deux", true);
 
-        // sA.add(a.add());
-        // sV.add(v.add());
+     //Hotel hh= new Hotel();
+    // hh.add();
+    // sH.add(hh);
 
-        sVc.add(vc.add());
-    }
+    //**facturation */
+    // menu.reservee();
+
+    //**tri */
+    //System.out.println(sH.getAll());
+    //System.out.println(sH.Tri());
+    //**recherche */
+    System.out.println(sH.Chercher("aziza"));
+// controle de saisie 
+    // System.out.println(sR.getAll());
+
+  }
 
 }
